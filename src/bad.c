@@ -45,7 +45,13 @@ int main(int argc, char const *argv[]) {
             printf("Error: 创建线程出错\n");
             abort();
         }
+        sleep(1);
     }  //for
+
+    // 回收线程
+    for (size_t i = 0; i < NUM_THREADS; i++) {
+        pthread_join(threadid[i], NULL);
+    }
 
     for (size_t i = 0; i < RESOURCES; i++) {
         pthread_mutex_destroy(&mutex[i]);
