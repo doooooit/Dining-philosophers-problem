@@ -7,6 +7,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 // 定义全局资源(资源数组)
 #define RESOURCES 5
@@ -30,12 +31,12 @@ void * fetch(void * threadid) {
 int main(int argc, char const *argv[]) {
     // 资源初始化
     for (size_t i = 0; i < RESOURCES; i++) {
-        mutex[i] = PTHREAD_MUTEX_INITIALIZER;
+        pthread_mutex_init(&mutex[i], NULL);
     }
 
     pthread_t threadid[NUM_THREADS];
     int indexes[NUM_THREADS];   // 用来记录线程号
-    
+
     for (size_t i = 0; i < NUM_THREADS; i++) {
         indexes[i] = i;
         int ret = pthread_create(&threadid[i], NULL, fetch
@@ -45,6 +46,10 @@ int main(int argc, char const *argv[]) {
             abort();
         }
     }  //for
+
+    for (size_t i = 0; i < RESOURCES; i++) {
+        pthread_mutex_destroy(&mutex[i]);
+    }
 
     return 0;
 }
