@@ -45,9 +45,9 @@ int main(int argc, char const *argv[]) {
 
     for (size_t i = 0; i < NUM_THREADS; i++) {
         indexes[i] = i;
-        int ret = pthread_create(&threadid[i], NULL, philosopher
+        int test = pthread_create(&threadid[i], NULL, philosopher
                                  , (void*) &(indexes[i]));
-        if (ret) {
+        if (test) {
             printf("Error: 创建线程出错\n");
             abort();
         }
