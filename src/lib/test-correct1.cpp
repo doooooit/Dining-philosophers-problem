@@ -24,7 +24,7 @@ int main(int argc, char const *argv[]) {
     }
 
     // 互斥锁初始化
-    // pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+    pthread_mutex_init(&mutex, NULL);
 
     int test;
     for (size_t i = 0; i < NUM_THREADS; i++) {
@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]) {
 
     // pthread_exit(NULL);
     // 销毁锁
-    // pthread_mutex_destroy(&mutex);
+    pthread_mutex_destroy(&mutex);
 
     return 0;
 }

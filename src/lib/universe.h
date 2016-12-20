@@ -21,6 +21,6 @@ pthread_t threadid[NUM_THREADS];    // 线程数组
 int indexes[NUM_THREADS];           // 用来记录线程和资源的序号
 
 // 定义互斥锁
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;              // 在 main 函数中动态初始化
+pthread_mutex_t mutex;              // 在 main 函数中动态初始化
 
 #endif
