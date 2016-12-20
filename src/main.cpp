@@ -9,29 +9,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string>
 
 #include "lib/universe.h"
 #include "lib/bad.hpp"
 #include "lib/correct1.hpp"
 
+using namespace std;
+
 int main(int argc, char const *argv[]) {
-    int type;       // 用于表示执行那个实现
-    if (argc == 1) {
-        type = 1;
+
+    int type = 1;       // 用于表示执行那个实现
+
+    const string bad = "--bad";
+    const string correct1 = "--correct1";
+    const string arg = argv[1];
+
+    if (2 == argc) {
+
+        if (bad == arg) {
+            type = 0;
+        }
+
+        else if (correct1 == arg) {
+            type = 1;
+        }
+
+        else {
+            printf("Error: 无效的参数\n");
+            printf("\t'--bad'\t\t执行哲学家进餐问题的错误代码\n");
+            printf("\t'--correct1'\t执行哲学家进餐问题的第一种正确实现\n");
+            printf("\t不传参默认以第一种正确实现执行\n");
+            exit(1);
+        }
     }
     else if (argc > 2) {
         printf("Error: 过多的参数\n");
-        printf("'--bad'\t\t执行哲学家进餐问题的错误代码\n");
-        printf("'--correct1'\t执行哲学家进餐问题的第一种正确实现\n");
-        printf("不传参默认以第一种正确实现执行\n");
+        printf("\t'--bad'\t\t执行哲学家进餐问题的错误代码\n");
+        printf("\t'--correct1'\t执行哲学家进餐问题的第一种正确实现\n");
+        printf("\t不传参默认以第一种正确实现执行\n");
         exit(1);
-    }
-
-    if (*argv == "--bad") {
-        type == 0;
-    }
-    else if (*argv == "--correct1") {
-        type = 1;
     }
 
     // 资源初始化
@@ -49,11 +66,11 @@ int main(int argc, char const *argv[]) {
     for (size_t i = 0; i < NUM_THREADS; i++) {
         indexes[i] = i;
         int test;
-        if (type == 0) {
+        if (0 == type) {
             test = pthread_create(&threadid[i], NULL, bad::philosopher
                                  , (void*) &(indexes[i]));
         }
-        if (type == 1) {
+        if (1 == type) {
             test = pthread_create(&threadid[i], NULL, correct1::philosopher
                                  , (void*) &(indexes[i]));
         }
