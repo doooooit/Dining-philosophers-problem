@@ -13,7 +13,6 @@
 #include "universe.h"
 #include "correct1.hpp"
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 int main(int argc, char const *argv[]) {
     // 资源初始化
@@ -29,9 +28,9 @@ int main(int argc, char const *argv[]) {
 
     int test;
     for (size_t i = 0; i < NUM_THREADS; i++) {
-        // indexes[i] = i;
+        indexes[i] = i;
         test = pthread_create(&threadid[i], NULL, correct1::philosopher
-                                 , (void*) i);
+                                 , (void*) &(indexes[i]));
 
         if (test) {
             printf("Error: 创建线程出错\n");
@@ -40,7 +39,7 @@ int main(int argc, char const *argv[]) {
 
     }  //for
 
-    /*
+
     // 回收线程
     for (size_t i = 0; i < NUM_THREADS; i++) {
         test = pthread_join(threadid[i], NULL);
@@ -50,15 +49,10 @@ int main(int argc, char const *argv[]) {
         else {
             printf("%d 号线程已回收\n", i);
         }
-        sleep(1);
     }
-    */
-    pthread_join(threadid[0], NULL);
-    pthread_join(threadid[1], NULL);
-    pthread_join(threadid[2], NULL);
-    pthread_join(threadid[3], NULL);
-    pthread_join(threadid[4], NULL);
 
+
+    // pthread_exit(NULL);
     // 销毁锁
     // pthread_mutex_destroy(&mutex);
 

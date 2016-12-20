@@ -18,7 +18,7 @@
 namespace correct1 {
     void *philosopher(void *ID) {
         int id = *((int *) ID);
-        int next = id + 1;
+        int next = (id + 1) % 5;
 
         pthread_mutex_lock(&mutex);  // 申请资源前先上锁
         // 请求资源
@@ -34,6 +34,7 @@ namespace correct1 {
 
         sem_post(&forks[id]);
         sem_post(&forks[next]);
+        pthread_exit(NULL);
     }
 
 }
