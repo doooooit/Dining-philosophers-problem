@@ -21,11 +21,15 @@ int main(int argc, char const *argv[]) {
 
     int type = 1;       // 用于表示执行那个实现
 
-    const string bad = "--bad";
-    const string correct1 = "--correct1";
-    const string arg = argv[1];
+    if (1 == argc) {
+        type = 1;
+    }
 
     if (2 == argc) {
+
+        const string bad = "--bad";
+        const string correct1 = "--correct1";
+        const string arg = argv[1];
 
         if (bad == arg) {
             type = 0;
