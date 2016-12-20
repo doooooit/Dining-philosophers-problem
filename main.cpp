@@ -21,10 +21,6 @@ int main(int argc, char const *argv[]) {
 
     int type = 1;       // 用于表示执行那个实现
 
-    if (1 == argc) {
-        type = 1;
-    }
-
     if (2 == argc) {
 
         const string bad = "--bad";
