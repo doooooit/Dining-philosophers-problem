@@ -1,7 +1,7 @@
 /****************************************************
  * Author: shangxke <shangke01@gmail.com>
  * Created Date: 2016/12/20
- * Title: 项目全局头文件，定义了一些全局常量
+ * Title: 项目全局头文件，定义了一些全局常量和线程信息打印函数
  ***************************************************/
 
 #ifndef UNIVERSE
@@ -26,12 +26,12 @@ int heldBy[RESOURCES];              // 描述叉子被谁持有
 #define NUM_THREADS 5               // 最大线程数
 pthread_t threadid[NUM_THREADS];    // 线程数组
 int indexes[NUM_THREADS];           // 用来记录线程和资源的序号
-std::string status[NUM_THREADS];         // 用于描述哲学家状态，
+std::string status[NUM_THREADS];    // 用于描述哲学家状态，
                                     // Thinking, Waiting, Eating, Terminated
 // 定义互斥锁
 pthread_mutex_t mutex;              // 在 main 函数中动态初始化
 
-int watcherRun = 1;                  // 执行状态显示开启
+int watcherRun = 1;                 // 执行状态显示开启
 
 // 显示线程
 pthread_t watch;
@@ -72,7 +72,7 @@ void *watcher(void*) {
 		printf("\n【哲学家概览】\n思考中：%2d\t等待中：%2d\t进餐中：%2d\n", thinking, waiting, eating);
         printf("\n【筷子概览】\n使用中：%2d  可用数：%2d\n\n\n", use, available);
 
-        sleep(1);
+        usleep(500000);
 	}
 
 	pthread_exit(NULL);
