@@ -19,21 +19,10 @@
 
 
 namespace correct2 {
-    void Description() {
-        printf("$\n");
-        printf("$ Title: 资源分级解法\n");
-        printf("$ Algorithm Description:\n");
-        printf("$\t对所有资源排序，任何一个哲学家申请时只能先申请序号小的再大的\n");
-        printf("$\t如果 0～3 号哲学家都先申请了左边的叉子，则4号哲学家将阻塞\n");
-        printf("$\t此事第 4 号叉子只要 4 号哲学家可以获得\n");
-        printf("$\n\n");
-    }
-
-
     void *philosopher(void *ID) {
         int thisID = *((int *) ID);
         int leftFork = thisID;
-        int rightFork = (thisID + 1) % 5;
+        int rightFork = (thisID + 1) % RESOURCES;
 
         status[thisID] = "Thinking";
         usleep(random() % SLEEP_MAX);   // 随机休眠一段时间

@@ -6,6 +6,7 @@
 
 #include <pthread.h>
 #include <semaphore.h>
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -103,7 +104,6 @@ int main(int argc, char const *argv[]) {
         }
     }
     else if (1 == type) {
-        correct1::Description();
         for (size_t i = 0; i < NUM_THREADS; i++) {
             indexes[i] = i;
             ret = pthread_create(&threadid[i], NULL, correct1::philosopher
@@ -115,7 +115,6 @@ int main(int argc, char const *argv[]) {
         }
     }
     else if (2 == type) {
-        correct2::Description();
         for (size_t i = 0; i < NUM_THREADS; i++) {
             indexes[i] = i;
             ret = pthread_create(&threadid[i], NULL, correct2::philosopher

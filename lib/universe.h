@@ -11,6 +11,7 @@
 #include <semaphore.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <string>
 #include <iostream>
 
@@ -18,12 +19,12 @@
 
 
 // 定义全局资源，在 main 函数中初始化
-#define RESOURCES 5                 // 资源数量
+#define RESOURCES 10                 // 资源数量
 sem_t forks[RESOURCES];             // 资源（叉子）数组，信号量描述
 int heldBy[RESOURCES];              // 描述叉子被谁持有
 
 // 定义线程，描述哲学家
-#define NUM_THREADS 5               // 最大线程数
+#define NUM_THREADS 10               // 最大线程数
 pthread_t threadid[NUM_THREADS];    // 线程数组
 int indexes[NUM_THREADS];           // 用来记录线程和资源的序号
 std::string status[NUM_THREADS];    // 用于描述哲学家状态，
@@ -39,7 +40,7 @@ void *watcher(void*) {
     int thinking;           // 正在思考中的哲学家数
 	int waiting;            // 正在等待的哲学家数
     int eating;             // 正在吃东西的哲学家数
-    int use;              // 正在使用的筷子数
+    int use;                // 正在使用的筷子数
     int available;          // 当前可用的筷子数
 
     int N = RESOURCES;
@@ -54,10 +55,10 @@ void *watcher(void*) {
 
 		for (size_t i = 0; i < N; i++) {
 			if (heldBy[i] != -1) {
-				printf("[%d]:         %-15s[%d]:     %d\n",i,status[i].c_str(),i,heldBy[i]);
+				printf("[%d]:         %-14s[%d]:      %d\n",i,status[i].c_str(),i,heldBy[i]);
 				use++;
 			} else {
-				printf("[%d]:         %-15s[%d]:     Free\n",i,status[i].c_str(),i);
+				printf("[%d]:         %-14s[%d]:      Free\n",i,status[i].c_str(),i);
 				available++;
 			}
 
@@ -70,7 +71,7 @@ void *watcher(void*) {
 
 		}
 		printf("\n【哲学家概览】\n思考中：%2d\t等待中：%2d\t进餐中：%2d\n", thinking, waiting, eating);
-        printf("\n【筷子概览】\n使用中：%2d  可用数：%2d\n\n\n", use, available);
+        printf("\n【筷子概览】\n使用中：%2d\t可用数：%2d\n\n", use, available);
 
         usleep(500000);
 	}

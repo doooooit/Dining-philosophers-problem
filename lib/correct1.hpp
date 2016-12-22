@@ -16,22 +16,10 @@
 
 
 namespace correct1 {
-    void Description() {
-        printf("$\n");
-        printf("$ Title: 服务生解法\n");
-        printf("$ Algorithm Description:\n");
-        printf("$\t任何一个哲学家在申请资源前\n");
-        printf("$\t必须先获得服务生的服务，即对资源加锁\n");
-        printf("$\t同时获得所需的两个资源后释放服务生（锁）\n");
-        printf("$\t缺点：并行性差，如果一个哲学家在进餐时其相邻的哲学家申请，则所有线程都阻塞\n");
-        printf("$\n\n");
-    }
-
-
     void *philosopher(void *ID) {
         int thisID = *((int *) ID);
         int leftFork = thisID;
-        int rightFork = (thisID + 1) % 5;
+        int rightFork = (thisID + 1) % RESOURCES;
 
         status[thisID] = "Thinking";
         usleep(random() % SLEEP_MAX);   // 随机休眠一段时间
