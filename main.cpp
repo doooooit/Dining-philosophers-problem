@@ -22,6 +22,7 @@ using namespace std;
 
 int main(int argc, char const *argv[]) {
 
+
     int type = 0;       // 用于表示执行那个实现
 
     if (2 == argc) {
@@ -43,29 +44,42 @@ int main(int argc, char const *argv[]) {
         else if (!strcmp(argv[1], "--correct2")) {
             type = 2;
         }
+        else if (!strcmp(argv[1], "--correct3")) {
+            type = 3;
+        }
 
         else {
             printf("Error: 无效的参数\n");
-            printf("\t'--bad'\t\t执行哲学家进餐问题的错误代码\n");
+            printf("\t'--bad'\t\t执行哲学家进餐问题的错误代码，发生死锁\n");
             printf("\t'--correct1'\t执行哲学家进餐问题的第一种正确实现\n");
+            printf("\t'--correct1'\t执行哲学家进餐问题的第二种正确实现\n");
+            printf("\t'--correct1'\t执行哲学家进餐问题的第三种正确实现\n");
             printf("\t不传参默认执行错误程序\n");
             exit(1);
         }
     }
     else if (argc > 2) {
         printf("Error: 过多的参数\n");
-        printf("\t'--bad'\t\t执行哲学家进餐问题的错误代码\n");
+        printf("\t'--bad'\t\t执行哲学家进餐问题的错误代码，发生死锁\n");
         printf("\t'--correct1'\t执行哲学家进餐问题的第一种正确实现\n");
+        printf("\t'--correct1'\t执行哲学家进餐问题的第二种正确实现\n");
+        printf("\t'--correct1'\t执行哲学家进餐问题的第三种正确实现\n");
         printf("\t不传参默认执行错误程序\n");
         exit(1);
     }
 
     // 资源初始化
     for (size_t i = 0; i < RESOURCES; i++) {
+        heldBy[i] = -1;     // 当前无人持有
         if (sem_init(&forks[i], 0, 1)) {
             printf("Error: 资源初始化失败\n");
             exit(1);
         }
+    }
+
+    // 哲学家状态初始化
+    for (size_t i = 0; i < NUM_THREADS; i++) {
+        status[i] = "Sleeping";
     }
 
     // 互斥锁初始化
@@ -126,11 +140,19 @@ int main(int argc, char const *argv[]) {
         }
     }
 
+    if (0 != type) {
+        // 创建显示线程
+        pthread_create(&watch, NULL, watcher, NULL);
+    }
 
     // 回收线程
     for (size_t i = 0; i < NUM_THREADS; i++) {
         pthread_join(threadid[i], NULL);
-        printf("%d 号线程已回收\n", i);
+    }
+
+    if (0 != type) {
+        watcherRun = 0;
+        pthread_join(watch, NULL);
     }
 
     // 销毁锁

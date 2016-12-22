@@ -10,20 +10,27 @@
 #include <semaphore.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 namespace bad {
     // 描述哲学家资源申请过程的函数，先获取第一个资源，再请求第二个资源
     void * philosopher(void * ID) {
-        int id = *((int *) ID);
-        int next = (id + 1) % 5;
-        if (!sem_wait(&forks[id])) {
+        int thisID = *((int *) ID);
+        int leftFork = thisID;
+        int rightFork = (thisID + 1) % 5;
+
+        status[thisID] = "Thinking";
+
+        status[thisID] = "Waiting";
+
+        if (!sem_wait(&forks[leftFork])) {
             printf("%d 号哲学家：已获取 %d 号叉子，正在请求 %d 号叉子...\n",
-                id, id, next);
+                thisID, leftFork, rightFork);
         }
         sleep(2);
-        sem_wait(&forks[next]);
-        sem_post(&forks[id]);
-        sem_post(&forks[next]);
+        sem_wait(&forks[rightFork]);
+        sem_post(&forks[leftFork]);
+        sem_post(&forks[rightFork]);
     }
 
 }
