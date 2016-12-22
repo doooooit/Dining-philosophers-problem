@@ -16,6 +16,16 @@
 
 
 namespace correct1 {
+    void Description() {
+        printf("$\n");
+        printf("$ Title: 第一种正确解法\n");
+        printf("$ Algorithm Description:\n");
+        printf("$\t任何一个哲学家在申请资源前\n");
+        printf("$\t先对所有资源申请加锁，申请完之后释放锁\n");
+        printf("$\n\n");
+    }
+
+
     void *philosopher(void *ID) {
         int id = *((int *) ID);
         int next = (id + 1) % 5;
