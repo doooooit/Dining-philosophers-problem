@@ -49,6 +49,7 @@ namespace correct2 {
 
             status[thisID] = "Eating";
             usleep(random() % SLEEP_MAX);   // 随机休眠一段时间
+            status[thisID] = "Terminated";
 
             sem_post(&forks[rightFork]);
             heldBy[rightFork] = -1;
@@ -63,6 +64,7 @@ namespace correct2 {
 
             status[thisID] = "Eating";
             usleep(random() % SLEEP_MAX);   // 随机休眠一段时间
+            status[thisID] = "Terminated";
 
             sem_post(&forks[leftFork]);
             heldBy[leftFork] = -1;

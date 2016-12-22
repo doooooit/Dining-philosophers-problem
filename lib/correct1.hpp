@@ -49,11 +49,13 @@ namespace correct1 {
 
         usleep(random() % SLEEP_MAX);   // 随机休眠一段时间
 
+        status[thisID] = "Terminated";
+
         // 释放叉子
         sem_post(&forks[leftFork]);
-        heldBy[thisID] = -1;
+        heldBy[leftFork] = -1;
         sem_post(&forks[rightFork]);
-        heldBy[thisID] = -1;
+        heldBy[rightFork] = -1;
 
         pthread_exit(NULL);
     }

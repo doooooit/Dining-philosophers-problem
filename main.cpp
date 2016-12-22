@@ -16,7 +16,6 @@
 #include "lib/bad.hpp"
 #include "lib/correct1.hpp"
 #include "lib/correct2.hpp"
-#include "lib/correct3.hpp"
 
 using namespace std;
 
@@ -127,18 +126,6 @@ int main(int argc, char const *argv[]) {
             }
         }
     }
-    else if (3 == type) {
-        correct3::Description();
-        for (size_t i = 0; i < NUM_THREADS; i++) {
-            indexes[i] = i;
-            ret = pthread_create(&threadid[i], NULL, correct3::philosopher
-                              , (void*) &(indexes[i]));
-            if (ret) {
-                printf("Error: 创建线程出错\n");
-                exit(1);
-            }
-        }
-    }
 
     if (0 != type) {
         // 创建显示线程
@@ -149,6 +136,7 @@ int main(int argc, char const *argv[]) {
     for (size_t i = 0; i < NUM_THREADS; i++) {
         pthread_join(threadid[i], NULL);
     }
+    sleep(1);
 
     if (0 != type) {
         watcherRun = 0;

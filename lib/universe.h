@@ -9,8 +9,10 @@
 
 #include <pthread.h>
 #include <semaphore.h>
+#include <stdlib.h>
 #include <string.h>
 #include <string>
+#include <iostream>
 
 #define SLEEP_MAX 10000001          // 线程随机休眠最大时间
 
@@ -43,19 +45,19 @@ void *watcher(void*) {
     int N = RESOURCES;
 
 	while (watcherRun) {
-		//wait for 0.5 seconds
-		usleep(500000);
+        system("clear");
+
 
 		//start printing
-		printf("哲学家编号   状态               叉子编号    被谁持有\n");
+		printf("哲学家编号   状态          叉子编号  被谁持有\n");
 		thinking = 0; waiting = 0; eating = 0;	use = 0; available = 0;
 
 		for (size_t i = 0; i < N; i++) {
 			if (heldBy[i] != -1) {
-				printf("[%2d]:   %-20s[%2d]:   %d\n",i,status[i],i,heldBy[i]);
+				printf("[%d]:         %-15s[%d]:     %d\n",i,status[i].c_str(),i,heldBy[i]);
 				use++;
 			} else {
-				printf("[%2d]:   %-20s[%2d]:   Free\n",i,status[i],i);
+				printf("[%d]:         %-15s[%d]:     Free\n",i,status[i].c_str(),i);
 				available++;
 			}
 
@@ -69,6 +71,8 @@ void *watcher(void*) {
 		}
 		printf("\n【哲学家概览】\n思考中：%2d\t等待中：%2d\t进餐中：%2d\n", thinking, waiting, eating);
         printf("\n【筷子概览】\n使用中：%2d  可用数：%2d\n\n\n", use, available);
+
+        sleep(1);
 	}
 
 	pthread_exit(NULL);
