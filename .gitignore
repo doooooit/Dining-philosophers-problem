@@ -1,2 +1,3 @@
 main
-lib/test-correct1.cpp
+main.o
+universe.o
