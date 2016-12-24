@@ -11,9 +11,22 @@
 #ifndef PHILOSOPHER_C2
 #define PHILOSOPHER_C2
 
+#include <pthread.h>
+#include <semaphore.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <string>
 
-    extern void *philosopher2(void *ID);
+#define SLEEP_MAX 10000001
+#define RESOURCES 5
 
-//}
+// 定义全局资源，在 main 函数中初始化
+extern sem_t forks[];             // 资源（叉子）数组，信号量描述
+extern int heldBy[];              // 描述叉子被谁持有
+
+// 定义线程，描述哲学家
+extern std::string status[];    // 用于描述哲学家状态，
+
+void *philosopher2(void *ID);
 
 #endif

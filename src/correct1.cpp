@@ -1,9 +1,5 @@
-#include "../lib/correct1.h"
-#include "../lib/universe.h"
-#include <pthread.h>
-#include <semaphore.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "../inc/correct1.h"
+
 
 extern void *philosopher1(void *ID) {
     int thisID = *((int *) ID);

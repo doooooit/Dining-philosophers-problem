@@ -1,3 +1,3 @@
 main
-main.o
-universe.o
+*.o
+inc/*.gch

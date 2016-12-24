@@ -9,41 +9,9 @@
 **/
 
 
-#include <pthread.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <string>
 
-#ifndef _LIB
-#define _LIB
+#include "../inc/universe.h"
 
-#include "../lib/universe.h"
-#include "../lib/bad.h"
-#include "../lib/correct1.h"
-#include "../lib/correct2.h"
-
-#endif
-
-
-// 定义全局资源，在 main 函数中初始化
-sem_t forks[RESOURCES];             // 资源（叉子）数组，信号量描述
-int heldBy[RESOURCES];              // 描述叉子被谁持有
-
-
-// 定义线程，描述哲学家
-pthread_t threadid[NUM_THREADS];    // 线程数组
-int indexes[NUM_THREADS];           // 用来记录线程和资源的序号
-std::string status[NUM_THREADS];    // 用于描述哲学家状态，
-                                           // Thinking, Waiting, Eating, Terminated
-
-// 定义互斥锁
-pthread_mutex_t mutex;              // 在 main 函数中动态初始化
-
-
-// 显示线程
-int watcherRun;                 // 执行状态显示开启
-pthread_t watch;
 
 void *watcher(void*) {
     int thinking;           // 正在思考中的哲学家数
