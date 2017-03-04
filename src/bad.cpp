@@ -1,7 +1,5 @@
 #include "../inc/bad.h"
-#include <semaphore.h>
-#include <stdio.h>
-#include <unistd.h>
+
 
 
 //namespace bad {

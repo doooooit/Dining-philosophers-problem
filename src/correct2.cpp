@@ -1,4 +1,3 @@
-
 #include "../inc/correct2.h"
 
 extern void *philosopher2(void *ID) {

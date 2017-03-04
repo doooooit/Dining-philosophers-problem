@@ -8,6 +8,8 @@
 #define BAD
 
 #include <semaphore.h>
+#include <stdio.h>
+#include <unistd.h>
 
 #define RESOURCES 5                 // 资源数量
 
