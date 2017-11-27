@@ -3,7 +3,7 @@
 cc = g++
 prom = main
 VPATH = src:inc
-objs = main.o universe.o bad.o correct1.o correct2.o
+objs = main.o util.o bad.o correct1.o correct2.o
 
 $(prom): $(objs)
 	$(cc) $(objs) -lpthread -o $(prom)
@@ -17,8 +17,8 @@ correct1.o: correct1.cpp correct1.h
 correct2.o: correct2.cpp correct2.h
 	$(cc) -c -lpthread src/correct2.cpp
 
-universe.o: universe.cpp universe.h bad.h correct1.h correct2.h
-	$(cc) -c -lpthread src/universe.cpp
+util.o: util.cpp util.h bad.h correct1.h correct2.h
+	$(cc) -c -lpthread src/util.cpp
 
-main.o: main.cpp universe.h
+main.o: main.cpp util.h
 	$(cc) -c -lpthread main.cpp

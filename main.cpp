@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "inc/universe.h"
+#include "inc/util.h"
 
 
 // 定义全局资源，在 main 函数中初始化
@@ -39,7 +39,7 @@ int main(int argc, char const *argv[]) {
 
     int type = 0;       // 用于表示执行那个实现
 
-    // 检查控制台输入参数的正确性和类型，universe.h中声明
+    // 检查控制台输入参数的正确性和类型，util.h中声明
     type = checkOptions(argc, argv);
 
     // 资源初始化
@@ -58,7 +58,7 @@ int main(int argc, char const *argv[]) {
 
 
     /***
-     *线程创建，描述哲学家进餐*
+     * 线程创建，描述哲学家进餐*
      */
     if (0 == type) {
         createThreads_bad();
